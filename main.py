@@ -1,27 +1,32 @@
 import fitz
+
 filename = "foo.pdf"
 
 FIGURE_KEYWORD = "Figure"
 IDLE_KEYWORD = "Idle"
 
+
 def is_beginning_of_table(block):
     return str(block).startswith(IDLE_KEYWORD)
+
 
 def is_end_of_table(block):
     return FIGURE_KEYWORD in str(block)
 
+
 def print_table(table_rows):
     header = (
-            f"\n========================================================================================================================\n"
-            f"                    Table 2-1. Simulated fuel savings from isolated cycle improvements      \n"
-            f"========================================================================================================================\n\n"
-            f"Cycle         KI          Distance        Improved           Decreased           Eliminate            Decreased\n"
-            f"Name        (1/km)         (mi)           Speed              Accel               Stops                Idle\n"
-            f"=====      =======       ========        ========          ===========          ============        ==============\n"
-        )
+        f"\n========================================================================================================================\n"
+        f"                    Table 2-1. Simulated fuel savings from isolated cycle improvements      \n"
+        f"========================================================================================================================\n\n"
+        f"Cycle         KI          Distance        Improved           Decreased           Eliminate            Decreased\n"
+        f"Name        (1/km)         (mi)           Speed              Accel               Stops                Idle\n"
+        f"=====      =======       ========        ========          ===========          ============        ==============\n"
+    )
 
     print(header)
     print("".join(table_rows))
+
 
 def main():
     with fitz.open(filename) as doc:
@@ -52,6 +57,7 @@ def main():
                 start_capture = True
 
         print_table(rows)
+
 
 if __name__ == "__main__":
     main()
