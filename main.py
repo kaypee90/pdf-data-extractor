@@ -31,16 +31,16 @@ def print_table(table_rows):
 def main():
     with fitz.open(filename) as doc:
         page = doc[0]
-        res = page.get_text("blocks")
+        blocks = page.get_text("blocks")
         start_capture = False
         rows = []
 
-        for item in res:
-            if is_end_of_table(item[4]):
+        for block in blocks:
+            if is_end_of_table(block[4]):
                 break
 
             if start_capture:
-                records = str(item[4]).split("\n")
+                records = str(block[4]).split("\n")
                 cycle_name = records[0]
                 ki = records[1]
                 distance = records[2]
@@ -53,7 +53,7 @@ def main():
                     f"=====      =======       ========        ========       ==============       ===============        ==============\n"
                 )
                 rows.append(row)
-            if is_beginning_of_table(item[4]):
+            if is_beginning_of_table(block[4]):
                 start_capture = True
 
         print_table(rows)
