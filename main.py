@@ -1,3 +1,7 @@
+"""
+Author kaypee90
+"""
+
 import fitz
 
 filename = "foo.pdf"
